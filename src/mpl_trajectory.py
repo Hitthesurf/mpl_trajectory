@@ -191,7 +191,7 @@ class trajectory():
         max_dots
         since the track length is made out of lots of dots to get different colours
         The number of dots can't exceed this, to help combat slow animaitons,
-        doesn't matter if saving animation.
+        when saving max_dots is still used.
         '''
         if setup:
             plt.style.use('dark_background')

@@ -1,1 +1,1 @@
-First version, more stuff to come
+Plots trajectories in an animaiton. Documentation coming soon!

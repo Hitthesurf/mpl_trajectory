@@ -11,7 +11,7 @@ setuptools.setup(
     description="A small package for matplotlib to show movement of trajectories",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/Hitthesurf/mpl_trajectory",
     license = "MIT",
     py_modules = ["mpl_trajectory"],
     package_dir={'': 'src'},

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mpl_trajectory",
-    version="0.0.2",
+    version="0.0.4",
     author="Mark Pearson",
     #author_email="author@example.com",
     description="A small package for matplotlib to show movement of trajectories",

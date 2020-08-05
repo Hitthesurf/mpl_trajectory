@@ -84,7 +84,7 @@ class c_plot():
 
 
 class Particle():
-    def __init__(self, x, y, z, Size, Particle_Color, Track_Length, Track_Size, Mass = 1):# Track_Color):
+    def __init__(self, x, y, z, Size, Particle_Color, Track_Length, Track_Size, Mass):# Track_Color):
         self.x = x
         self.y = y
         self.z = z
@@ -110,7 +110,7 @@ class trajectory():
         self.Particles = [] 
         
     def plot3D(self, x,y,z = [], Size = 10, Particle_Color = "blue",
-               Track_Length = 500, Track_Size = 0):
+               Track_Length = 500, Track_Size = 0, Mass = 1):
         if Track_Size == 0:
             Track_Size = Size/5
            
@@ -129,7 +129,7 @@ class trajectory():
         self.Particles.append(Particle(x=x,y=y,z=z, Size=Size,
                                        Particle_Color=Particle_Color,
                                        Track_Length = Track_Length,
-                                       Track_Size = Track_Size))
+                                       Track_Size = Track_Size, Mass=Mass))
         
     def ShowStatic(self, with_color = False, z_axis = [-15,15], save = False,
                    s = 12, setup = False):   

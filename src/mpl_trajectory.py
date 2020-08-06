@@ -15,11 +15,63 @@ import warnings
 
 
 def frame_number(frame, speed, particles):
+    """
+    Creates the text for the animation, called every frame to get the
+    text to be displayed. 
+    
+    Can have your own text the function must have the same input and
+    output varablies as this one.
+    
+    The first line to be run is pos = frame*speed to get the current
+    position of the data to be viewed
+
+    Parameters
+    ----------
+    frame : int
+        The frame number of the animation.
+    speed : int
+        The number of cords jumped per frame
+    particles : object
+        An object which contains all the particles data
+
+    Returns
+    -------
+    str
+        The text to be displayed for a given frame
+
+    """
     pos = frame*speed
     return f"Position: {pos},  Frame: {frame}"
     
 
 def combine(step, *cords):
+    '''
+    Combines two or more arrays together
+
+    Parameters
+    ----------
+    step : int
+        The size of the step taken.
+    *cords : turple of array
+        The arrays to be combined
+
+    Returns
+    -------
+    Array
+        Combination of array
+        
+    
+    Examples
+    --------
+    >>> combine(2,[1,2,3,4,5,6],[1,2,3,4,5,6])
+    [[1, 1],[3, 3],[5, 5]]
+    
+    >>> combine(1,[1,2,3,4,5],[5,4,3,2,1], [1,1,2,1,1])
+    [[1, 5, 1], [2, 4, 1], [3, 3, 2], [4, 2, 1], [5, 1, 1]]
+    
+    
+    
+    '''
     if step == 0:
         step = 1
     n_cords = np.array(cords).T
@@ -30,7 +82,9 @@ def combine(step, *cords):
     return np.array(new_c)
 
 class c_plot():
-    def __init__(self, ax, size=2, text="", colour_axis=False, is_point=False, cmap=0, norm=0, max_dots=300):
+
+    def __init__(self, ax, size=2, text="", colour_axis=False, is_point=False,
+                 cmap=0, norm=0, max_dots=300):
         self.ax = ax
         self.x = []
         self.y = []
@@ -104,6 +158,24 @@ class Particle():
 
 
 class trajectory():
+    """
+    Array with associated photographic information.
+
+
+    Attributes
+    ----------
+    name : string
+        The name given to the simulation, used in saving for file name.
+        
+    cmap : cmap
+        The colour map to use as the 3rd axis, a list of supported cmaps
+        can be found at 
+        https://matplotlib.org/3.3.0/tutorials/colors/colormaps.html
+        
+    Particles: Array of objects
+        Stores the information for the trajectories and particles.
+
+    """
     def __init__(self, name = "My_Trajectory", cmap = mpl.cm.winter):
         self.name = name
         self.cmap = cmap
@@ -155,12 +227,70 @@ class trajectory():
                 plt.savefig("Static_" + self.name + ".png", dpi = 270)
         
     def Clear(self):
+        """
+        Clears all the particle and trajectory data
+
+        """
         self.Particles = []
         
     
     def ShowAnimation(self, size=15, follow_mass=-1, save=False, link_data=[], z_axis=[-15, 15],
                       with_color=False, max_dots=150, speed = 4, setup = False,
                       text = [frame_number]):
+        '''
+        
+
+        Parameters
+        ----------
+        size : float, optional
+            DESCRIPTION. The default is 15.
+            
+            
+        follow_mass : int, optional
+            DESCRIPTION. The default is -1.
+            
+            
+        save : boolean, optional
+            DESCRIPTION. The default is False.
+            
+            
+        link_data : Array, optional
+            DESCRIPTION. The default is [].
+            
+            
+        z_axis : Array, optional
+            DESCRIPTION. The default is [-15, 15].
+            
+            
+        with_color : boolean, optional
+            DESCRIPTION. The default is False.
+            
+            
+        max_dots : int, optional
+            DESCRIPTION. The default is 150.
+            
+            
+        speed : int, optional
+            DESCRIPTION. The default is 4.
+            
+            
+        setup : boolean, optional
+            DESCRIPTION. The default is False.
+            
+            
+        text : array, optional
+            DESCRIPTION. The default is [frame_number].
+            
+            
+
+        Returns
+        -------
+        animation
+            DESCRIPTION.
+
+        '''
+        
+        
         '''
 
         follow_mass

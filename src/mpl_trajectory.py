@@ -20,7 +20,7 @@ def frame_number(frame, speed, particles):
     text to be displayed. 
     
     Can have your own text the function must have the same input and
-    output varablies as this one.
+    output variables as this one.
     
     The first line to be run is pos = frame*speed to get the current
     position of the data to be viewed
@@ -183,6 +183,38 @@ class trajectory():
         
     def plot3D(self, x,y,z = [], Size = 10, Particle_Color = "blue",
                Track_Length = 500, Track_Size = 0, Mass = 1):
+        '''
+        Enter path data of the particle into the trajectory object.
+
+        Parameters
+        ----------
+        x : Array
+            The x-cords of the particle over time. Example [1,2,4,5,6]
+        y : Array
+            The y-cords of the particle over time. Example [6,5,4,2,1]
+        z : Array, optional
+            The z-cords of the particle over time. The default is [],
+            but will change to [0]*len(x) if it is default.
+        Size : float, optional
+            The size of the particle to be displayed. The default is 10.
+        Particle_Color : string, optional
+            Currently doesn't work only does blue. The default is "blue".
+        Track_Length : int, optional
+            The length of the track left behind the particle. Must be int
+            The default is 500.
+        Track_Size : float, optional
+            The width of the track left behind the particle. The default is 0.
+            This will change to 1/5 of Size if left to default.
+        Mass : float, optional
+            This is used for calculations like following the centre of mass
+            for the camera. The default is 1.
+
+        Raises
+        ------
+        ValueError
+            x,y,z do not have correct length.
+
+        '''
         if Track_Size == 0:
             Track_Size = Size/5
            
@@ -204,7 +236,25 @@ class trajectory():
                                        Track_Size = Track_Size, Mass=Mass))
         
     def ShowStatic(self, with_color = False, z_axis = [-15,15], save = False,
-                   s = 12, setup = False):   
+                   s = 12, setup = False):
+        '''
+        Plots a normal matplotlib graph of the trajectories.
+        
+        Parameters
+        ----------
+        with_color : bool, optional
+            Plots with the z-axis as colour . The default is False.
+        z_axis : array, optional
+            The colour range of the z_axis.. The default is [-15,15].
+        save : bool, optional
+            Saves the graph. The default is False.
+        s : float, optional
+            If with_color then this will be the size of the dots. The default is 12.
+        setup : bool, optional
+            Runs a nice setup, in this case figure size is set to (7,7)
+            and a dark_background style is used. The default is False.
+
+        '''
         if setup:
             plt.style.use('dark_background')
             plt.figure(figsize=(7,7))
@@ -228,7 +278,7 @@ class trajectory():
         
     def Clear(self):
         """
-        Clears all the particle and trajectory data
+        Clears all the particle trajectory data
 
         """
         self.Particles = []
@@ -238,91 +288,87 @@ class trajectory():
                       with_color=False, max_dots=150, speed = 4, setup = False,
                       text = [frame_number]):
         '''
-        
+        This function creates an animation, plot3D must be used first to obtain
+        the trajectory data.
 
         Parameters
         ----------
         size : float, optional
-            DESCRIPTION. The default is 15.
-            
+            The distance from the centre of the graph in the x,y plane.
+            The default is 15.
             
         follow_mass : int, optional
-            DESCRIPTION. The default is -1.
+            (-3 = The camera remains static)
             
+            (-2 = The camera follows the largest mass)
             
+            (-1 = The camera follows the centre of mass of the system)
+            
+            (0,1,2, n-1 = The camera follows that particle)
+            
+            The default is -1.
+                      
         save : boolean, optional
-            DESCRIPTION. The default is False.
-            
-            
+            Save animation as a mp4 video, requires ffmpeg. The saved name
+            will be the name of self.name
+            The default is False.
+                      
         link_data : Array, optional
-            DESCRIPTION. The default is [].
+            links particles together with a line.
             
+            0 means origin
             
+            i means particle i
+    
+            examples
+            
+            [[0,0]] line drawn between origin and origin(thus no line)
+    
+            [[0,1],[1,2]]
+            
+            a line drawn from origin to particle 1 
+            and a line drawn from 1 to 2
+            
+            The default is [].
+                        
         z_axis : Array, optional
-            DESCRIPTION. The default is [-15, 15].
-            
-            
+            The colour range of the z_axis.
+            The default is [-15, 15].
+                        
         with_color : boolean, optional
-            DESCRIPTION. The default is False.
-            
-            
+            If true, it will use colour as a 3rd axis (z-axis), a colour
+            bar will appear as well.
+            The default is False.
+                        
         max_dots : int, optional
-            DESCRIPTION. The default is 150.
-            
-            
+            When plotting with colour tells the program how many dots can be
+            rendered for all the tracks, the more dots the more laggy the animation
+            becomes. When saving the animation lag isn't a problem but the more
+            dots there are the more space it will take up.
+            The default is 150.
+                        
         speed : int, optional
-            DESCRIPTION. The default is 4.
-            
-            
+            Has to be an integer, pos = frame*speed, where pos tells what
+            section to use for the position of a particle for a given frame.
+            The default is 4.
+                        
         setup : boolean, optional
-            DESCRIPTION. The default is False.
-            
-            
+            Run a standard setup, in this case it is just making the plots use
+            a darkstyle background.
+            The default is False.
+                        
         text : array, optional
-            DESCRIPTION. The default is [frame_number].
+            This is used to display changing text in the animation, by
+            following the same structure as the frame_number function, one can
+            create a string to return. All the functions in the list will be
+            called every frame.
+            The default is [frame_number].
             
             
 
-        Returns
-        -------
-        animation
-            DESCRIPTION.
 
         '''
         
-        
-        '''
-
-        follow_mass
-        -3 : The camera remains static
-        -2 : The camera follows the largest mass
-        -1 : The camera follows the center of mass of the system
-        0,1,2, n-1 : The camera follows that particle
-
-
-        link_data
-        links particles together with a line.
-        0 means origin
-        i means particle i
-
-        examples
-        [[0,0]] line drawn between origin and orign(thus no line)
-
-        [[0,1],[1,2]]
-        a line drawn from origin to particle 1 
-        and a line drawn from 1 to 2
-
-        z_axis
-        the colour range of the z axis
-
-        with_color
-        uses colour as a 3rd axis
-
-        max_dots
-        since the track length is made out of lots of dots to get different colours
-        The number of dots can't exceed this, to help combat slow animaitons,
-        when saving max_dots is still used.
-        '''
         if setup:
             plt.style.use('dark_background')
         

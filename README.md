@@ -7,7 +7,7 @@
 # What Is This
 mpl_trajectory helps to plot particle trajectories as animations in matplotlib.
 
-It can show show 3D trajectories as well by using the third axis as color.
+It can show show 3D trajectories by using the third axis as colour.
 
 It can output a static graph or animation of the trajectories.
  

@@ -1,4 +1,7 @@
 # mpl_trajectory
+
+You can read the docs from this badge
+[![Documentation Status](https://readthedocs.org/projects/mpl-trajectory/badge/?version=latest)](https://mpl-trajectory.readthedocs.io/en/latest/?badge=latest)
 # Table of Contents
 1. [What Is This](#What_Is_This)
 2. [Examples](#Examples)

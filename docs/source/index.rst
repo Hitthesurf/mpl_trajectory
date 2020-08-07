@@ -15,6 +15,9 @@ It can output a static graph or animation of the trajectories.
    :maxdepth: 2
    :caption: Contents:
 
+.. image:: https://readthedocs.org/projects/mpl-trajectory/badge/?version=latest
+	:target: https://mpl-trajectory.readthedocs.io/en/latest/?badge=latest
+	:alt: Documentation Status
 
 
 Indices and tables
